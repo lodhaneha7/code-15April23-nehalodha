@@ -77,6 +77,9 @@ public async calculateHealthParams(): Promise<IResponseHandlerParams>{
     console.log(`Execution time: ${executionTime} milliseconds`);
     console.log(`Output file : 'src/assets/outputData.json' `)
 
+    fs.appendFileSync('log.txt', `\nStart Date Time: ${startDate.toLocaleString()}`);
+    fs.appendFileSync('log.txt', `\nEnd Date Time: ${endDate.toLocaleString()}`);
+    fs.appendFileSync('log.txt', `\nExecution Time: ${executionTime} milliseconds\n`);
       return ResponseHandlerService({
         success: true,
         httpCode: HttpStatus.OK,
@@ -85,6 +88,7 @@ public async calculateHealthParams(): Promise<IResponseHandlerParams>{
      
     }catch(error){
       console.log('Caught error:', error);
+      fs.appendFileSync('log.txt', `\nError: ${error}`);
       return ResponseHandlerService({
         success: false,
         httpCode: HttpStatus.INTERNAL_SERVER_ERROR,
